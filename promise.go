@@ -3,6 +3,7 @@
 package gojspromise
 
 import (
+	"fmt"
 	"runtime/debug"
 	"syscall/js"
 )
@@ -50,7 +51,7 @@ func (p Promise) do(methodName string, fn func(value js.Value) interface{}) Prom
 func (p Promise) Catch(fn func(rejectedReason js.Value) interface{}) Promise {
 	stack := string(debug.Stack())
 	return p.do("catch", func(rejectedReason js.Value) interface{} {
-		fmt.Printf("%v: %v %v"
+		fmt.Printf("%v: %v %v",
 			js.ValueOf("Promise rejected:"),
 			rejectedReason,
 			js.ValueOf(stack),
